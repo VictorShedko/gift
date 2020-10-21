@@ -15,8 +15,6 @@ import java.util.List;
 public class TagRepositoryImpl extends EntityGiftRepository implements TagRepository {
 
 
-
-
     public TagRepositoryImpl(DataSource dataSource) {
         super(dataSource);
     }
@@ -32,13 +30,13 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
     @Transactional
     @Override
     public int deleteTag(Tag tag) {
-        return jdbcTemplate.update("delete from tag where id=?",tag.getId());
+        return jdbcTemplate.update("delete from tag where id=?", tag.getId());
     }
 
     @Override
     public Tag findTagById(Integer id) {
-         Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
-         return tag;
+        Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
+        return tag;
     }
 
     @Override

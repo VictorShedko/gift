@@ -51,7 +51,20 @@ public class GiftCertificateRepository extends EntityGiftRepository {
     }
 
     public List<GiftCertificate> getAllGiftCertificate() {
-        return jdbcTemplate.query("select * from gift_certificate",GIFT_CERTIFICATE_ROW_MAPPER);
+        return jdbcTemplate.query("select * from gift_certificate", GIFT_CERTIFICATE_ROW_MAPPER);
+    }
+
+    public int update(GiftCertificate certificate) {
+        return jdbcTemplate.update("update gift.gift_certificate " +
+                "set gift_certificate.name=?," +
+                "gift_certificate.description=?," +
+                "gift_certificate.price=?," +
+                "gift_certificate.creationTime=?," +
+                "gift_certificate.updateTime=?," +
+                "gift_certificate.duration=?" +
+                "where id=?", new Object[]{certificate.getName(), certificate.getDescription(),
+                certificate.getPrice(), certificate.getCreationTime(), certificate.getUpdateTime(),
+                certificate.getDuration(), certificate.getId()});
     }
 
 }

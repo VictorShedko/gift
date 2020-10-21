@@ -4,6 +4,7 @@ import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.repository.GiftCertificateRepository;
 import com.epam.esm.repository.GiftCertificateTagRelationRepository;
+import com.epam.esm.util.TimeManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +45,24 @@ public class GiftCertificateService {
         return giftCertificateRepository.deleteGiftCertificate(cert);
     }
 
-    public void attachTag(Tag tag, Integer certId){
-        relationRepository.attach(tag.getId(),certId);
+    public void attachTag(Tag tag, Integer certId) {
+        relationRepository.attach(tag.getId(), certId);
     }
 
-    public void detachTag(Tag tag, Integer certId){
-        relationRepository.detach(tag.getId(),certId);
+    public void detachTag(Tag tag, Integer certId) {
+        relationRepository.detach(tag.getId(), certId);
 
     }
 
-    public Tag tagByNumber(Integer certId,Integer number){
+    public Tag tagByNumber(Integer certId, Integer number) {
         return tags(certId).get(number);
     }
+
+    public int update(GiftCertificate certificate) {
+        GiftCertificate certificateFromDB = findById(certificate.getId());
+        certificateFromDB.update(certificate);
+        certificateFromDB.setUpdateTime(TimeManager.now());
+        return giftCertificateRepository.update(certificateFromDB);
+    }
+
 }

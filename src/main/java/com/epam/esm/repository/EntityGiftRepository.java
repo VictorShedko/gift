@@ -8,8 +8,9 @@ import javax.sql.DataSource;
 public class EntityGiftRepository {
 
     protected JdbcTemplate jdbcTemplate;
+
     @Autowired
     public EntityGiftRepository(DataSource dataSource) {
-        this.jdbcTemplate=new JdbcTemplate(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 }

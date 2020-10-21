@@ -16,31 +16,41 @@ public class GiftController {
     private GiftCertificateService giftCertificateService;
 
     @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
-    public List<GiftCertificate> getAllCertificate() {
+    public List<GiftCertificate> all() {
         return giftCertificateService.all();
     }
 
     @RequestMapping(value = "gift-cert/{id}", method = RequestMethod.GET)
-    public GiftCertificate getCertificate(@PathVariable int id) {
+    public GiftCertificate certificate(@PathVariable int id) {
         GiftCertificate giftCertificate = giftCertificateService.findById(id);
         return giftCertificate;
     }
 
 
     @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.GET)
-    public List<Tag> getGiftCertificateTags(@PathVariable int id) {
+    public List<Tag> tags(@PathVariable int id) {
         return giftCertificateService.tags(id);
     }
 
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.POST)
+    public void attachTag(@PathVariable int id, @RequestBody Tag tag) {
+        giftCertificateService.attachTag(tag, id);
+    }
+
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.DELETE)
+    public void detachTag(@PathVariable int id, @RequestBody Tag tag) {
+        giftCertificateService.detachTag(tag, id);
+    }
+
     @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
-    public void getAllCertificate(@RequestBody GiftCertificate certificate) {
+    public void add(@RequestBody GiftCertificate certificate) {
 
         giftCertificateService.add(certificate);
     }
 
-
-    public GiftCertificate update() {
-        return null;
+    @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
+    public int update(@RequestBody GiftCertificate certificate) {
+        return giftCertificateService.update(certificate);
     }
 
 }

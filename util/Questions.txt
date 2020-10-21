@@ -10,9 +10,9 @@
 
  метод репозитория должен принимать тег или строку названия
 
- 3 лучше все маппинги на @RequestParam переделать или оставить с PathVariable для ид
+3 лучше все маппинги на @RequestParam переделать или оставить с PathVariable для ид
 
- 4
+4
   @RequestMapping(value = "tag", method = RequestMethod.GET)
      public List<Tag> getAllTag() {
          return tagService.getAllTags();
@@ -24,7 +24,6 @@
       }
 
     как разрешить такое противоречие
-
  5
      @RequestMapping(value = "tag", method = RequestMethod.POST)
      public void addTag(@RequestBody Tag tag) {
@@ -40,3 +39,14 @@
       }
 
       какой из вариантов предпочтителен
+
+6 добавлять к сертификату можно только существующий тэг или создавать?
+7
+
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.DELETE)
+    public void detachTag(@PathVariable int id,@RequestBody Tag tag) {
+        giftCertificateService.detachTag(tag,id);
+    }
+
+    при удаление тега из сертификата получать id по пути или весь обект тэга
+8 во многих источниках при выполнении упдейта например, приходит сам обьект + ид с чем это связанно?

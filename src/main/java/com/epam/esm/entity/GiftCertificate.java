@@ -123,4 +123,24 @@ public class GiftCertificate {
                 ", duration=" + duration +
                 '}';
     }
+
+    public void update(GiftCertificate certificate) {
+        if (certificate.creationTime != null) {
+            this.creationTime = certificate.creationTime;
+        }
+        if (certificate.description != null) {
+            this.description = certificate.description;
+        }
+        if (certificate.duration != null) {
+            this.duration = certificate.duration;
+        }
+        if (certificate.price != null) {
+            this.price = certificate.price;
+        }
+        if (certificate.name != null) {
+            this.name = certificate.name;
+        }
+
+
+    }
 }
