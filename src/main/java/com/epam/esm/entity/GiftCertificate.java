@@ -9,6 +9,7 @@ public class GiftCertificate {
     private String description;
     private Float price;
     private Date creationTime;
+    private Date updateTime;
     private Integer duration;
 
 }

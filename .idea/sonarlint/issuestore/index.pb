@@ -25,15 +25,7 @@ B
 util/tag test.http,5\e\5e31edda0cb71f1b161953bef75f574efdc5268d
 g
 7src/main/java/com/epam/esm/controler/TagController.java,d\c\dc069c27f637b78cf71799e7266583b6873e3afb
-f
-6src/main/java/com/epam/esm/service/TagServiceImpl.java,5\9\59058af10af1b0a0184b4e6c059f665e6e584628
 g
 7src/main/java/com/epam/esm/config/AppConfiguration.java,f\6\f6dc43764c84a8714d5a2bba8e1f8a8826c91809
 8
 gift.iml,7\1\71e1d4c522c008f9a9b90d96170b6125ce670c71
-`
-0src/main/webapp/resources/ApplicationContext.xml,d\4\d4f556eac3ac97d3c5832782f08a70a810730c96
-X
-(src/main/webapp/WEB-INF/gift-servlet.xml,9\e\9e452b0b37d9eafff52cb681347ca1f16cf7259f
-W
-'src/main/webapp/WEB-INF/app-context.xml,a\4\a4fd6696333e3177ec6a72f4dca10862616e87bc
