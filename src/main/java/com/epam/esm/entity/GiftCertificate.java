@@ -1,6 +1,8 @@
 package com.epam.esm.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class GiftCertificate {
@@ -8,15 +10,18 @@ public class GiftCertificate {
     private String name;
     private String description;
     private Float price;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
     private Date creationTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
     private Date updateTime;
     private Integer duration;
 
     public GiftCertificate() {
     }
 
-    public GiftCertificate(Integer id,String name, String description, Float price,
+    public GiftCertificate(Integer id, String name, String description, Float price,
                            Date creationTime, Date updateTime, Integer duration) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;

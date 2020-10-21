@@ -13,7 +13,7 @@ import java.util.List;
 public class TagService {
 
     @Autowired
-    private TagRepositoryImpl tagRepository;
+    private TagRepositoryImpl tagRepository=null;
 
     @Autowired
     private GiftCertificateTagRelationRepository relationRepository;

@@ -1,6 +1,7 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.Tag;
+import com.epam.esm.repository.util.RowMappers;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +16,6 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
 
 
 
-    RowMapper<Tag> ROW_MAPPER = (ResultSet resultSet, int rowNum) -> {
-        return new Tag(resultSet.getInt("id"), resultSet.getString("name"));//todo should i use constant class instead had codded column names?
-    };
 
     public TagRepositoryImpl(DataSource dataSource) {
         super(dataSource);
@@ -39,18 +37,18 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
 
     @Override
     public Tag findTagById(Integer id) {
-         Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, ROW_MAPPER);
+         Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
          return tag;
     }
 
     @Override
     public Tag findTagByName(String name) {
-        Tag tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, ROW_MAPPER);
+        Tag tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, RowMappers.TAG_ROW_MAPPER);
         return tag;
     }
 
     @Override
     public List<Tag> getAllTags() {
-        return jdbcTemplate.query("select * from tag", ROW_MAPPER);
+        return jdbcTemplate.query("select * from tag", RowMappers.TAG_ROW_MAPPER);
     }
 }

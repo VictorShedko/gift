@@ -26,15 +26,15 @@ public class TagController {
         return tagService.findTagById(id);
     }
 
-    // TODO:
-    @RequestMapping(value = "tag", method = RequestMethod.GET)
-    public Tag getTag(@RequestParam String name) {
-        return tagService.findTagByName(name);
-    }
+//    @RequestMapping(value = "tag", method = RequestMethod.GET)
+//    public Tag getTag(@RequestParam(name = "name") String name) {
+//        return tagService.findTagByName(name);
+//    }
 
     @RequestMapping(value = "tag", method = RequestMethod.POST)
-    public void addTag(@RequestBody String name) {
-        tagService.addTag(name);
+    public void addTag(@RequestBody Tag tag) {
+
+        tagService.addTag(tag.getName());
     }
 
     @RequestMapping(value = "tag/{id}", method = RequestMethod.DELETE)
@@ -43,9 +43,4 @@ public class TagController {
         tagService.deleteTag(id);
     }
 
-    @RequestMapping(value = "tag/{id}/cert", method = RequestMethod.DELETE)
-    public void getRelatedCertificates(@PathVariable int id) {
-
-        tagService.getCertificatesByTag(id);
-    }
 }

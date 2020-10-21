@@ -4,10 +4,7 @@ import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.service.GiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,21 +17,29 @@ public class GiftController {
 
     @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
     public List<GiftCertificate> getAllCertificate() {
-        return giftCertificateService.getAllCertificates();
+        return giftCertificateService.all();
     }
 
     @RequestMapping(value = "gift-cert/{id}", method = RequestMethod.GET)
     public GiftCertificate getCertificate(@PathVariable int id) {
-        return giftCertificateService.findCertificateById(id);
+        GiftCertificate giftCertificate = giftCertificateService.findById(id);
+        return giftCertificate;
     }
 
 
     @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.GET)
     public List<Tag> getGiftCertificateTags(@PathVariable int id) {
-        return giftCertificateService.getCertificatesByTag(id);
+        return giftCertificateService.tags(id);
     }
 
-    public GiftCertificate update(){
+    @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
+    public void getAllCertificate(@RequestBody GiftCertificate certificate) {
+
+        giftCertificateService.add(certificate);
+    }
+
+
+    public GiftCertificate update() {
         return null;
     }
 

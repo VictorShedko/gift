@@ -1,7 +1,6 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.entity.Tag;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
     public void addGiftCertificate(GiftCertificate certificate) {
         if (certificate.getId() == null) {
             jdbcTemplate.update("insert " +
-                            "into giftcertificate (name,description,price,creationTime,updateTime,duration) " +
+                            "into gift_certificate (name,description,price,creationTime,updateTime,duration) " +
                             "values ( ?,?,?,?,?,?)",
                     certificate.getName(), certificate.getDescription(),
                     certificate.getPrice(), certificate.getCreationTime(),
@@ -42,17 +41,17 @@ public class GiftCertificateRepository extends EntityGiftRepository {
     @Transactional
 
     public int deleteGiftCertificate(GiftCertificate certificate) {
-        return jdbcTemplate.update("delete from giftcertificate where id=?", certificate.getId());
+        return jdbcTemplate.update("delete from gift_certificate where id=?", certificate.getId());
     }
 
 
     public GiftCertificate findTagById(Integer id) {
-        GiftCertificate certificate = jdbcTemplate.queryForObject("select * from GiftCertificate where id = ?", new Object[]{id}, GIFT_CERTIFICATE_ROW_MAPPER);
+        GiftCertificate certificate = jdbcTemplate.queryForObject("select * from gift_certificate where id = ?", new Object[]{id}, GIFT_CERTIFICATE_ROW_MAPPER);
         return certificate;
     }
 
     public List<GiftCertificate> getAllGiftCertificate() {
-        return jdbcTemplate.query("select * from giftcertificate",GIFT_CERTIFICATE_ROW_MAPPER);
+        return jdbcTemplate.query("select * from gift_certificate",GIFT_CERTIFICATE_ROW_MAPPER);
     }
 
 }

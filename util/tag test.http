@@ -1,7 +1,10 @@
 
 
-GET http://localhost:8089/gift_war/tag-rest/tag
+POST http://localhost:8089/gift_war/tag-rest/tag
+{
+"name":"vlad",
 
+}
 
 
 

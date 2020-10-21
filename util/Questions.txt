@@ -1,0 +1,42 @@
+1 Создавать ли интерфейсы репозиториев и сервисов или сразу писать реализации?
+
+2
+ @Override
+    public void addTag(Tag newTag) {
+        if (newTag.getId() == null) {
+            jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+        }
+    }
+
+ метод репозитория должен принимать тег или строку названия
+
+ 3 лучше все маппинги на @RequestParam переделать или оставить с PathVariable для ид
+
+ 4
+  @RequestMapping(value = "tag", method = RequestMethod.GET)
+     public List<Tag> getAllTag() {
+         return tagService.getAllTags();
+     }
+
+  @RequestMapping(value = "tag", method = RequestMethod.GET)
+      public Tag getTag(@RequestParam(name = "name") String name) {
+          return tagService.findTagByName(name);
+      }
+
+    как разрешить такое противоречие
+
+ 5
+     @RequestMapping(value = "tag", method = RequestMethod.POST)
+     public void addTag(@RequestBody Tag tag) {
+
+         tagService.addTag(tag.getName());
+     }
+
+
+      @RequestMapping(value = "tag", method = RequestMethod.POST)
+          public void addTag(@RequestBody String name) {
+
+              tagService.addTag(name);
+      }
+
+      какой из вариантов предпочтителен
