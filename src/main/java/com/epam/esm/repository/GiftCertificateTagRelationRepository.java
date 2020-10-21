@@ -5,12 +5,11 @@ import com.epam.esm.entity.Tag;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.security.cert.Certificate;
 import java.util.List;
 
 @Repository
-public class GiftCertificateRelationRepository extends GiftRepository {
-    public GiftCertificateRelationRepository(DataSource dataSource) {
+public class GiftCertificateTagRelationRepository extends EntityGiftRepository {
+    public GiftCertificateTagRelationRepository(DataSource dataSource) {
         super(dataSource);
     }
 

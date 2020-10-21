@@ -1,19 +1,22 @@
 package com.epam.esm.entity;
 
 
+import java.util.Date;
+
 public class GiftCertificate {
+    private Integer id;
     private String name;
     private String description;
     private Float price;
-    private String creationTime;
-    private String updateTime;
+    private Date creationTime;
+    private Date updateTime;
     private Integer duration;
 
     public GiftCertificate() {
     }
 
-    public GiftCertificate(String name, String description, Float price,
-                           String creationTime, String updateTime, Integer duration) {
+    public GiftCertificate(Integer id,String name, String description, Float price,
+                           Date creationTime, Date updateTime, Integer duration) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -46,11 +49,11 @@ public class GiftCertificate {
         this.price = price;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -62,11 +65,11 @@ public class GiftCertificate {
         this.duration = duration;
     }
 
-    public String getCreationTime() {
+    public Date getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(String creationTime) {
+    public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
     }
 
@@ -94,6 +97,14 @@ public class GiftCertificate {
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (duration != null ? duration.hashCode() : 0);
         return result;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

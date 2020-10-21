@@ -2,7 +2,7 @@ package com.epam.esm.service;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.repository.GiftCertificateRelationRepository;
+import com.epam.esm.repository.GiftCertificateTagRelationRepository;
 import com.epam.esm.repository.TagRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class TagService {
     private TagRepositoryImpl tagRepository;
 
     @Autowired
-    private GiftCertificateRelationRepository relationRepository;
+    private GiftCertificateTagRelationRepository relationRepository;
 
     public List<Tag> getAllTags(){
         return tagRepository.getAllTags();
