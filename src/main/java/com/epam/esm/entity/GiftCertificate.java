@@ -3,6 +3,7 @@ package com.epam.esm.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class GiftCertificate {
@@ -10,17 +11,15 @@ public class GiftCertificate {
     private String name;
     private String description;
     private Float price;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
-    private Date creationTime;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
-    private Date updateTime;
+    private String creationTime;
+    private String updateTime;
     private Integer duration;
 
     public GiftCertificate() {
     }
 
     public GiftCertificate(Integer id, String name, String description, Float price,
-                           Date creationTime, Date updateTime, Integer duration) {
+                           String creationTime, String updateTime, Integer duration) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -54,11 +53,11 @@ public class GiftCertificate {
         this.price = price;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -70,11 +69,11 @@ public class GiftCertificate {
         this.duration = duration;
     }
 
-    public Date getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 

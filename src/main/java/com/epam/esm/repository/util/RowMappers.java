@@ -12,8 +12,8 @@ public class RowMappers {
                 resultSet.getString("name"),
                 resultSet.getString("description"),
                 resultSet.getFloat("price"),
-                resultSet.getDate("creationTime"),
-                resultSet.getDate("updateTime"),
+                resultSet.getString("creationTime"),
+                resultSet.getString("updateTime"),
                 resultSet.getInt("duration")
         );
     };

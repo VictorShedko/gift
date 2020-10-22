@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -23,8 +24,8 @@ public class TimeManager {
     }
 
 
-    public static Date now() {
-        return new Date();
+    public static String now() {
+        return dateFormat.format(new Date());
     }
 
     public static String dateToString(Date date) {

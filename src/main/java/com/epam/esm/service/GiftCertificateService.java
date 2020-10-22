@@ -20,8 +20,10 @@ public class GiftCertificateService {
     private GiftCertificateTagRelationRepository relationRepository;
 
     public List<GiftCertificate> all() {
-        return giftCertificateRepository.getAllGiftCertificate();
+        List<GiftCertificate> certificates = giftCertificateRepository.getAllGiftCertificate();
+        return certificates;
     }
+
 
     public GiftCertificate findById(Integer id) {
         return giftCertificateRepository.findTagById(id);
