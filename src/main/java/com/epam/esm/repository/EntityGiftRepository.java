@@ -5,11 +5,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class GiftRepository {
+public class EntityGiftRepository {
 
     protected JdbcTemplate jdbcTemplate;
+
     @Autowired
-    public GiftRepository(DataSource dataSource) {
-        this.jdbcTemplate=new JdbcTemplate(dataSource);
+    public EntityGiftRepository(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 }

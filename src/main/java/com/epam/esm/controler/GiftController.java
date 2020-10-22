@@ -2,10 +2,9 @@ package com.epam.esm.controler;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.epam.esm.service.GiftCertificateService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,20 +12,50 @@ import java.util.List;
 @RequestMapping("gift-rest")
 public class GiftController {
 
-    @RequestMapping(value = "gift-cart", method = RequestMethod.GET)
-    public List<GiftCertificate> getAllTag() {
-        return null;
+    @Autowired
+    private GiftCertificateService giftCertificateService;
+
+    @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
+    public List<GiftCertificate> all() {
+        return giftCertificateService.all();
     }
 
-    @RequestMapping(value = "gift-cart/{id}", method = RequestMethod.GET)
-    public String getTag(@PathVariable int id) {
-        return "lol";
+    @RequestMapping(value = "gift-cert/{id}", method = RequestMethod.GET)
+    public GiftCertificate certificate(@PathVariable int id) {
+        GiftCertificate giftCertificate = giftCertificateService.findById(id);
+        return giftCertificate;
     }
 
 
-    @RequestMapping(value = "gift-cart/{id}/tags/{tag_num}", method = RequestMethod.GET)
-    public String getTag(@PathVariable String name) {
-        return "lol";
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.GET)
+    public List<Tag> tags(@PathVariable int id) {
+        return giftCertificateService.tags(id);
     }
 
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.POST)
+    public void attachTag(@PathVariable int id, @RequestBody Tag tag) {
+        giftCertificateService.attachTag(tag, id);
+    }
+
+    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.DELETE)
+    public void detachTag(@PathVariable int id, @RequestBody Tag tag) {
+        giftCertificateService.detachTag(tag, id);
+    }
+
+    @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
+    public void add(@RequestBody GiftCertificate certificate) {
+
+        giftCertificateService.add(certificate);
+    }
+
+    @RequestMapping(value = "gift-cert", method = RequestMethod.PATCH)
+    public int update(@RequestBody GiftCertificate certificate) {
+        return giftCertificateService.update(certificate);
+    }
+
+
+    @RequestMapping(value = "gift-cert", method = RequestMethod.DELETE)
+    public int delete(@RequestBody GiftCertificate certificate) {
+        return giftCertificateService.update(certificate);
+    }
 }

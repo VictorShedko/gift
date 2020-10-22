@@ -10,7 +10,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     // Static Resource Config
 
 
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
