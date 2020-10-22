@@ -48,9 +48,14 @@ public class GiftController {
         giftCertificateService.add(certificate);
     }
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
+    @RequestMapping(value = "gift-cert", method = RequestMethod.PATCH)
     public int update(@RequestBody GiftCertificate certificate) {
         return giftCertificateService.update(certificate);
     }
 
+
+    @RequestMapping(value = "gift-cert", method = RequestMethod.DELETE)
+    public int delete(@RequestBody GiftCertificate certificate) {
+        return giftCertificateService.update(certificate);
+    }
 }
