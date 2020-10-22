@@ -1,1 +1,8 @@
-GET http://localhost/tag-rest/1
+
+
+GET http://localhost:8089/gift_war/tag-rest/tag
+
+
+
+
+GET http://localhost:8089/gift_war/tag-rest

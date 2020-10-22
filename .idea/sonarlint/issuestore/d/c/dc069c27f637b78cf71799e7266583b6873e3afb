@@ -1,5 +1,3 @@
 
-Y
-java:S1128"<Remove this unused import 'com.epam.esm.service.TagService'.(Øú‘§8ñ½ƒ­Ô.
 e
-java:S4488"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(ğÄâÿ8ÄÏ«²Ô.
+java:S4488"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(ğÄâÿ8ÄÏ«²Ô.

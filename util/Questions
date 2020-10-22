@@ -1,0 +1,13 @@
+1 Создавать ли интерфейсы репозиториев и сервисов или сразу писать реализации?
+
+2
+ @Override
+    public void addTag(Tag newTag) {
+        if (newTag.getId() == null) {
+            jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+        }
+    }
+
+ метод репозитория должен принимать тег или строку названия
+
+ 3 лучше все маппинги на @RequestParam переделать или оставить с PathVariable для ид

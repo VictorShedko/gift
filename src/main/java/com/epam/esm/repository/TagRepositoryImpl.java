@@ -1,32 +1,39 @@
-package com.epam.esm.service;
+package com.epam.esm.repository;
 
 import com.epam.esm.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
-@Component
-public class TagServiceImpl implements TagService {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+@Repository
+public class TagRepositoryImpl extends GiftRepository implements TagRepository {
+
+
 
     RowMapper<Tag> ROW_MAPPER = (ResultSet resultSet, int rowNum) -> {
         return new Tag(resultSet.getInt("id"), resultSet.getString("name"));//todo should i use constant class instead had codded column names?
     };
 
+    public TagRepositoryImpl(DataSource dataSource) {
+        super(dataSource);
+    }
+
+
     @Override
     public void addTag(Tag newTag) {
         if (newTag.getId() == null) {
-            jdbcTemplate.update("insert into tag values (?, ?)", newTag.getId(), newTag.getName());
+            jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
         }
     }
 
+    @Transactional
     @Override
     public int deleteTag(Tag tag) {
         return jdbcTemplate.update("delete from tag where id=?",tag.getId());
