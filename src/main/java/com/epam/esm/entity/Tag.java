@@ -50,7 +50,4 @@ public class Tag {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-    public Tag() {
-    }
 }
