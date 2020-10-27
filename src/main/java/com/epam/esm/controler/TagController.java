@@ -1,15 +1,20 @@
 package com.epam.esm.controler;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.repository.TagRepositoryImpl;
+import com.epam.esm.exception.GiftException;
+import com.epam.esm.exception.JSONExceptionEntity;
 import com.epam.esm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
 
-@RestController
+@RestControllerAdvice
 @RequestMapping("tag-rest")
 public class TagController {
 
@@ -41,6 +46,12 @@ public class TagController {
     public void deleteTag(@PathVariable int id) {
 
         tagService.deleteTag(id);
+    }
+
+    @ExceptionHandler({GiftException.class})
+    public ResponseEntity<Object> handleCustomException(GiftException ce, WebRequest request) {
+        return new ResponseEntity<>(
+                new JSONExceptionEntity(ce, HttpStatus.I_AM_A_TEAPOT), new HttpHeaders(), HttpStatus.I_AM_A_TEAPOT);
     }
 
 }

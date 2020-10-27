@@ -2,10 +2,16 @@ package com.epam.esm.controler;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.service.CertificateService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -13,7 +19,7 @@ import java.util.List;
 public class GiftController {
 
     @Autowired
-    private GiftCertificateService giftCertificateService;
+    private CertificateService giftCertificateService;
 
     @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
     public List<GiftCertificate> all() {
@@ -58,4 +64,12 @@ public class GiftController {
     public int delete(@RequestBody GiftCertificate certificate) {
         return giftCertificateService.update(certificate);
     }
+
+    @RequestMapping(value = "gift-cert/test", method = RequestMethod.POST)
+    public ZonedDateTime timeTest(@RequestBody
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime date) {
+
+        return date;
+    }
+    //@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
 }

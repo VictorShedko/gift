@@ -12,7 +12,7 @@ import java.security.cert.Certificate;
 import java.util.List;
 
 @Service
-public class GiftCertificateService {
+public class CertificateService {
     @Autowired
     private GiftCertificateRepository giftCertificateRepository;
 

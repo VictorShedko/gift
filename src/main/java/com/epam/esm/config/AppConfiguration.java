@@ -41,7 +41,7 @@ public class AppConfiguration {
         return basicDataSource;
     }
 
-    @Deprecated
+
     public DataSource getDefaultSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
 

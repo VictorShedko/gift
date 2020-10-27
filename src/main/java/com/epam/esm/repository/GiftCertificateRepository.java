@@ -1,6 +1,7 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.GiftCertificate;
+import com.epam.esm.exception.GiftException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,8 @@ public class GiftCertificateRepository extends EntityGiftRepository {
                 resultSet.getString("name"),
                 resultSet.getString("description"),
                 resultSet.getFloat("price"),
-                resultSet.getString("creationTime"),
-                resultSet.getString("updateTime"),
+                resultSet.getTimestamp("creationTime"),
+                resultSet.getTimestamp("updateTime"),
                 resultSet.getInt("duration")
         );
     };
@@ -35,6 +36,8 @@ public class GiftCertificateRepository extends EntityGiftRepository {
                     certificate.getName(), certificate.getDescription(),
                     certificate.getPrice(), certificate.getCreationTime(),
                     certificate.getUpdateTime(), certificate.getDuration());
+        }else {
+            throw new GiftException("test",1);
         }
     }
 

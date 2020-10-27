@@ -11,15 +11,17 @@ public class GiftCertificate {
     private String name;
     private String description;
     private Float price;
-    private String creationTime;
-    private String updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'SZ")
+    private Date creationTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'SZ")
+    private Date updateTime;
     private Integer duration;
 
     public GiftCertificate() {
     }
 
     public GiftCertificate(Integer id, String name, String description, Float price,
-                           String creationTime, String updateTime, Integer duration) {
+                           Date creationTime, Date updateTime, Integer duration) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,11 +55,11 @@ public class GiftCertificate {
         this.price = price;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -69,11 +71,11 @@ public class GiftCertificate {
         this.duration = duration;
     }
 
-    public String getCreationTime() {
+    public Date getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(String creationTime) {
+    public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
     }
 

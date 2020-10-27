@@ -1,7 +1,9 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.Tag;
+import com.epam.esm.exception.GiftException;
 import com.epam.esm.repository.util.RowMappers;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +37,12 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
 
     @Override
     public Tag findTagById(Integer id) {
-        Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
+        Tag tag=null;
+        try {
+            tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
+        }catch (EmptyResultDataAccessException exception){
+            throw new GiftException("resource not fonded",123);
+        }
         return tag;
     }
 

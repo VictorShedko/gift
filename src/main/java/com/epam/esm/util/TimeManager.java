@@ -24,8 +24,8 @@ public class TimeManager {
     }
 
 
-    public static String now() {
-        return dateFormat.format(new Date());
+    public static Date now() {
+        return new Date();
     }
 
     public static String dateToString(Date date) {

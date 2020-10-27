@@ -15,8 +15,9 @@ public class GiftCertificateTagRelationRepository extends EntityGiftRepository {
     }
 
     public List<Tag> getTagsByCertificate(GiftCertificate certificate) {
-        return jdbcTemplate.query("select (tag.id,tag.name) from " +
-                "tag join gift_to_tag on tag.id " +
+        return jdbcTemplate.query("select tag.id,tag.name " +
+                "from tag join gift_to_tag " +
+                "on tag.id=gift_to_tag.tag_id  " +
                 "where cert_id= ?", new Object[]{certificate.getId()}, RowMappers.TAG_ROW_MAPPER);
     }
 
