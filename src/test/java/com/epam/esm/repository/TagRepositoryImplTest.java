@@ -44,6 +44,17 @@ class TagRepositoryImplTest {
     }
 
     @Test
+    void addTagWithId() {
+        Tag newTag=new Tag();
+        newTag.setName("testTag");
+        newTag.setId(12);
+
+        Assertions.assertThrows(GiftException.class, () -> {
+            tagRepository.addTag(newTag);
+        });
+    }
+
+    @Test
     void deleteTag() {
         Tag newTag=new Tag();
         newTag.setName("testTag");

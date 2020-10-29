@@ -7,15 +7,14 @@ public class JSONExceptionEntity {
     private String errorMassage;
     private HttpStatus status;
 
-    public JSONExceptionEntity(Exception ex,Integer errorCode, String errorMassage,HttpStatus status) {
+    public JSONExceptionEntity(Integer errorCode, String errorMassage,HttpStatus status) {
         this.errorCode = errorCode;
         this.errorMassage = errorMassage;
         this.status=status;
     }
-
+    @Deprecated
     public JSONExceptionEntity(GiftException exception,HttpStatus status){
         super();
-        this.errorCode =exception.getErrorCode();
         this.errorMassage=exception.getMessage();
         this.status=status;
     }

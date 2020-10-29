@@ -36,13 +36,6 @@ public class CertificateService {
         return giftCertificateRepository.findTagById(id);
     }
 
-    public List<Tag> tags(Integer id) {
-        var cert = new GiftCertificate();
-        cert.setId(id);
-        return relationRepository.getTagsByCertificate(cert);
-    }
-
-
     public GiftCertificate add(GiftCertificate certificate) {
         Date nowDate=TimeManager.now();
         certificate.setCreationTime(nowDate);
@@ -57,12 +50,12 @@ public class CertificateService {
         return giftCertificateRepository.delete(cert);
     }
 
-    public void attachTag(Tag tag, Integer certId) {
-        relationRepository.attach(tag.getId(), certId);
+    public void attachTag(Integer tagId, Integer certId) {
+        relationRepository.attach(tagId, certId);
     }
 
-    public void detachTag(Tag tag, Integer certId) {
-        relationRepository.detach(tag.getId(), certId);
+    public int detachTag(Integer tagId, Integer certId) {
+        return relationRepository.detach(tagId, certId);
 
     }
 
@@ -93,6 +86,12 @@ public class CertificateService {
     public List<GiftCertificate> searchByTag(String tagName){
         Tag tag=tagService.findTagByName(tagName);
         return relationRepository.getCertificateByTag(tag);
+    }
+
+    public List<Tag> tags(Integer id) {
+        var cert = new GiftCertificate();
+        cert.setId(id);
+        return relationRepository.getTagsByCertificate(cert);
     }
 
 }

@@ -19,25 +19,25 @@ public class UpdateCertificateService {
         giftCertificateUpdateMap = new HashMap<>();
 
         giftCertificateUpdateMap.put(cert -> cert.getName() != null,
-                (base, path) -> base.setName(path.getName()));
+                (base, patch) -> base.setName(patch.getName()));
         giftCertificateUpdateMap.put(cert -> cert.getDuration() != null,
-                (base, path) -> base.setDuration(path.getDuration()));
+                (base, patch) -> base.setDuration(patch.getDuration()));
         giftCertificateUpdateMap.put(cert -> cert.getDescription() != null,
-                (base, path) -> base.setDescription(path.getDescription()));
+                (base, patch) -> base.setDescription(patch.getDescription()));
         giftCertificateUpdateMap.put(cert -> cert.getCreationTime() != null,
-                (base, path) -> base.setCreationTime(path.getCreationTime()));
+                (base, patch) -> base.setCreationTime(patch.getCreationTime()));
         giftCertificateUpdateMap.put(cert -> cert.getPrice() != null,
-                (base, path) -> base.setPrice(path.getPrice()));
+                (base, patch) -> base.setPrice(patch.getPrice()));
         giftCertificateUpdateMap.put(certificate -> true,
-                (base,path)->base.setUpdateTime(TimeManager.now()));
+                (base,patch)->base.setUpdateTime(TimeManager.now()));
 
 
     }
 
-    public GiftCertificate updateCertificate(GiftCertificate base, GiftCertificate path) {
+    public GiftCertificate updateCertificate(GiftCertificate base, GiftCertificate patch) {
         for (var test:giftCertificateUpdateMap.keySet()){
-            if(test.test(path)){
-                giftCertificateUpdateMap.get(test).accept(base,path);
+            if(test.test(patch)){
+                giftCertificateUpdateMap.get(test).accept(base,patch);
             }
         }
         return base;

@@ -44,12 +44,17 @@ class TagServiceTest {
 
         List<Tag> resultTags = tagService.getAllTags();
 
-        Assert.assertEquals(resultTags, tags);
+        assertEquals(resultTags, tags);
     }
 
     @Test
     void findTagById() {
-        
+        Mockito.when(tagRepository.findTagById(1)).thenReturn(TEST_TAG_1);
+        Mockito.when(tagRepository.findTagById(2)).thenReturn(TEST_TAG_2);
+        Tag tag1=tagService.findTagById(1);
+        Tag tag2=tagService.findTagById(2);
+        assertEquals(TEST_TAG_1,tag1);
+        assertEquals(TEST_TAG_2,tag2);
     }
 
     @Test
@@ -57,11 +62,8 @@ class TagServiceTest {
     }
 
     @Test
-    void getCertificatesByTag() {
-    }
-
-    @Test
     void addTag() {
+
     }
 
     @Test

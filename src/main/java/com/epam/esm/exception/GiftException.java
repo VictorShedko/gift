@@ -1,23 +1,18 @@
 package com.epam.esm.exception;
 
 public class GiftException extends RuntimeException{
-    private Integer errorCode;
 
-    public GiftException(String message, Integer errorCode) {
+
+    public GiftException(String message) {
         super(message);
-        this.errorCode = errorCode;
+
     }
 
-    public GiftException(Throwable cause, Integer errorCode) {
+    public GiftException(Throwable cause) {
         super(cause);
-        this.errorCode = errorCode;
+
     }
 
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
+    public GiftException() {
     }
 }

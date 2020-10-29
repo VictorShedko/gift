@@ -2,80 +2,58 @@ package com.epam.esm.controler;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.GiftException;
-import com.epam.esm.exception.JSONExceptionEntity;
 import com.epam.esm.service.CertificateService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("gift-rest")
+@RequestMapping("api/gift-cert")
 public class GiftController {
 
     @Autowired
     private CertificateService giftCertificateService;
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
+    @RequestMapping(value = "/certs", method = RequestMethod.GET)
     public List<GiftCertificate> all() {
         return giftCertificateService.all();
     }
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
+    @RequestMapping(value = "/certs/{tagName}/tagName", method = RequestMethod.GET)
     public List<GiftCertificate> byTag(@RequestParam(name = "tagName") String tagName) {
         return giftCertificateService.searchByTag(tagName);
     }
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
+    @RequestMapping(value = "/certs/{find}/find", method = RequestMethod.GET)
     public List<GiftCertificate> find(@RequestParam(required = false, name = "find") String pattern) {
         return giftCertificateService.searchByAnyString(pattern);
     }
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.GET)
-    public List<GiftCertificate> all(@RequestParam(required = false, name = "name") String name,
-                                     @RequestParam(required = false, name = "tagName") String tagName,
-                                     @RequestParam(required = false, name = "find") String pattern) {
-        if (name != null) {
-            return giftCertificateService.searchByName(name);
-        }
-        if (tagName != null) {
-            return giftCertificateService.searchByTag(pattern);
-        }
-        if (pattern != null) {
-            return giftCertificateService.searchByAnyString(pattern);
-        }
-        return giftCertificateService.all();
-    }
 
-    @RequestMapping(value = "gift-cert/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/certs/{id}", method = RequestMethod.GET)
     public GiftCertificate certificate(@PathVariable int id) {
         GiftCertificate giftCertificate = giftCertificateService.findById(id);
         return giftCertificate;
     }
 
-
-    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.GET)
+    //TODO: to tag service
+    @RequestMapping(value = "/cert/{id}/tags", method = RequestMethod.GET)
     public List<Tag> tags(@PathVariable int id) {
         return giftCertificateService.tags(id);
     }
 
     @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.POST)
     public void attachTag(@PathVariable int id, @RequestBody Integer tagId) {
-        giftCertificateService.attachTag(tag, id);
+        giftCertificateService.attachTag(tagId, id);
     }
 
     @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.DELETE)
-    public void detachTag(@PathVariable int id, @RequestBody Integer tagIg) {
-        giftCertificateService.detachTag(tag, id);
+    public int detachTag(@PathVariable int id, @RequestBody Integer tagId) {
+        return giftCertificateService.detachTag(tagId, id);
     }
 
     @RequestMapping(value = "gift-cert", method = RequestMethod.POST)

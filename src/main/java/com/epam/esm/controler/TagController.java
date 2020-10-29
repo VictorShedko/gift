@@ -3,6 +3,7 @@ package com.epam.esm.controler;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.exception.GiftException;
 import com.epam.esm.exception.JSONExceptionEntity;
+import com.epam.esm.service.CertificateService;
 import com.epam.esm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,43 +16,43 @@ import java.util.List;
 
 
 @RestControllerAdvice
-@RequestMapping("tag-rest")
+@RequestMapping("/api/tag")
 public class TagController {
 
     @Autowired
     private TagService tagService;
 
-    @RequestMapping(value = "tag", method = RequestMethod.GET)
+    @Autowired
+    private CertificateService giftCertificateService;
+
+    @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public List<Tag> getAllTag() {
         return tagService.getAllTags();
     }
 
-    @RequestMapping(value = "tag/{id}", method = RequestMethod.GET)
-    public Tag getTag(@PathVariable int id) {
-        return tagService.findTagById(id);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public Tag getTag(@RequestParam int tagId) {
+        return tagService.findTagById(tagId);
     }
 
-//    @RequestMapping(value = "tag", method = RequestMethod.GET)
-//    public Tag getTag(@RequestParam(name = "name") String name) {
-//        return tagService.findTagByName(name);
-//    }
 
-    @RequestMapping(value = "tag", method = RequestMethod.POST)
-    public void addTag(@RequestBody Tag tag) {
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public void addTag(@RequestBody String tagName) {
 
-        tagService.add(tag.getName());
+        tagService.add(tagName);
     }
 
-    @RequestMapping(value = "tag/{id}", method = RequestMethod.DELETE)
-    public void deleteTag(@PathVariable int id) {
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+    public void deleteTag(@PathVariable int tagId) {
 
-        tagService.delete(id);
+        tagService.delete(tagId);
     }
 
-    @ExceptionHandler({GiftException.class})
-    public ResponseEntity<Object> handleCustomException(GiftException ce, WebRequest request) {
-        return new ResponseEntity<>(
-                new JSONExceptionEntity(ce, HttpStatus.I_AM_A_TEAPOT), new HttpHeaders(), HttpStatus.I_AM_A_TEAPOT);
+    @RequestMapping(value = "/{certId}/tags", method = RequestMethod.GET)
+    public List<Tag> tags(@PathVariable int certId) {
+        return giftCertificateService.tags(certId);
     }
+
+
 
 }

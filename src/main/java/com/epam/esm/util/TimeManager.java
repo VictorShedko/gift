@@ -1,14 +1,9 @@
 package com.epam.esm.util;
 
-import com.epam.esm.exception.DataParseException;
-import com.epam.esm.exception.ErrorCodeDict;
-import com.epam.esm.exception.ErrorMessage;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -27,20 +22,4 @@ public class TimeManager {
     public static Date now() {
         return new Date();
     }
-
-    public static String dateToString(Date date) {
-
-        String nowAsISO = dateFormat.format(date);
-        return nowAsISO;
-    }
-
-    public static Date dateFromString(String str) {
-        try {
-            return dateFormat.parse(str);
-        } catch (ParseException e) {
-            throw new DataParseException(ErrorMessage.BAD_INPUT_TIME, ErrorCodeDict.BAD_INPUT_TIME);
-        }
-    }
-
-
 }

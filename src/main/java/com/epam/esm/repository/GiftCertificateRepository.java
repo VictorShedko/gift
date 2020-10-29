@@ -2,13 +2,15 @@ package com.epam.esm.repository;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.exception.GiftException;
+import com.epam.esm.exception.IdInInsertException;
+import com.epam.esm.exception.ResourceNotFoundedException;
 import com.epam.esm.repository.util.RowMappers;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
@@ -19,7 +21,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
         super(dataSource);
     }
 
-
+    @Transactional
     public void add(GiftCertificate certificate) {
         if (certificate.getId() == null) {
             jdbcTemplate.update("insert " +
@@ -29,7 +31,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
                     certificate.getPrice(), certificate.getCreationTime(),
                     certificate.getUpdateTime(), certificate.getDuration());
         } else {
-            throw new GiftException("test", 1);
+            throw new IdInInsertException();
         }
     }
 
@@ -40,8 +42,12 @@ public class GiftCertificateRepository extends EntityGiftRepository {
 
 
     public GiftCertificate findTagById(Integer id) {
-        return jdbcTemplate.queryForObject("select * from gift_certificate where id = ?",
-                new Object[]{id}, RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
+        try {
+            return jdbcTemplate.queryForObject("select * from gift_certificate where id = ?",
+                    new Object[]{id}, RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException exception) {
+            throw new ResourceNotFoundedException("certificate", " id=" + id);
+        }
 
     }
 
@@ -50,22 +56,28 @@ public class GiftCertificateRepository extends EntityGiftRepository {
                 "ORDER BY name,creationTime", RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
     }
 
+    @Transactional
     public int update(GiftCertificate certificate) {
-        return jdbcTemplate.update("update gift.gift_certificate " +
-                        "set gift_certificate.name=?," +
-                        "gift_certificate.description=?," +
-                        "gift_certificate.price=?," +
-                        "gift_certificate.creationTime=?," +
-                        "gift_certificate.updateTime=?," +
-                        "gift_certificate.duration=?" +
-                        "where id=?" +
-                        "ORDER BY name,creationTime", certificate.getName(), certificate.getDescription(),
-                certificate.getPrice(), certificate.getCreationTime(), certificate.getUpdateTime(),
-                certificate.getDuration(), certificate.getId());
+        try {
+            return jdbcTemplate.update("update gift.gift_certificate " +
+                            "set gift_certificate.name=?," +
+                            "gift_certificate.description=?," +
+                            "gift_certificate.price=?," +
+                            "gift_certificate.creationTime=?," +
+                            "gift_certificate.updateTime=?," +
+                            "gift_certificate.duration=? " +
+                            "where id=?", certificate.getName(), certificate.getDescription(),
+                    certificate.getPrice(), certificate.getCreationTime(), certificate.getUpdateTime(),
+                    certificate.getDuration(), certificate.getId());
+
+        } catch (DataAccessException ex) {
+            throw new GiftException();
+        }
+
     }
 
     public List<GiftCertificate> searchByName(String pattern) {
-        return jdbcTemplate.query("select * " +
+            return jdbcTemplate.query("select * " +
                 "from gift_certificate " +
                 "where name " +
                 "LIKE ?" +
