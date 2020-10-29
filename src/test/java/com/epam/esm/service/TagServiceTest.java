@@ -2,9 +2,6 @@ package com.epam.esm.service;
 
 import com.epam.esm.entity.Tag;
 import com.epam.esm.repository.TagRepositoryImpl;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +39,7 @@ class TagServiceTest {
         List<Tag> tags = List.of(TEST_TAG_1, TEST_TAG_2);
         Mockito.when(tagRepository.getAllTags()).thenReturn(tags);
 
-        List<Tag> resultTags = tagService.getAllTags();
+        List<Tag> resultTags = tagService.all();
 
         assertEquals(resultTags, tags);
     }

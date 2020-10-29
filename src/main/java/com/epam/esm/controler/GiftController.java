@@ -24,12 +24,12 @@ public class GiftController {
     }
 
     @RequestMapping(value = "/certs/{tagName}/tagName", method = RequestMethod.GET)
-    public List<GiftCertificate> byTag(@RequestParam(name = "tagName") String tagName) {
+    public List<GiftCertificate> byTag(@PathVariable(name = "tagName") String tagName) {
         return giftCertificateService.searchByTag(tagName);
     }
 
     @RequestMapping(value = "/certs/{find}/find", method = RequestMethod.GET)
-    public List<GiftCertificate> find(@RequestParam(required = false, name = "find") String pattern) {
+    public List<GiftCertificate> find(@PathVariable( name = "find") String pattern) {
         return giftCertificateService.searchByAnyString(pattern);
     }
 
@@ -40,45 +40,21 @@ public class GiftController {
         return giftCertificate;
     }
 
-    //TODO: to tag service
-    @RequestMapping(value = "/cert/{id}/tags", method = RequestMethod.GET)
-    public List<Tag> tags(@PathVariable int id) {
-        return giftCertificateService.tags(id);
-    }
-
-    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.POST)
-    public void attachTag(@PathVariable int id, @RequestBody Integer tagId) {
-        giftCertificateService.attachTag(tagId, id);
-    }
-
-    @RequestMapping(value = "gift-cert/{id}/tags", method = RequestMethod.DELETE)
-    public int detachTag(@PathVariable int id, @RequestBody Integer tagId) {
-        return giftCertificateService.detachTag(tagId, id);
-    }
-
-    @RequestMapping(value = "gift-cert", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public void add(@RequestBody GiftCertificate certificate) {
 
         giftCertificateService.add(certificate);
     }
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/", method = RequestMethod.PATCH)
     public int update(@RequestBody GiftCertificate certificate) {
         return giftCertificateService.update(certificate);
     }
 
 
-    @RequestMapping(value = "gift-cert", method = RequestMethod.DELETE)
-    public int delete(@RequestBody Integer certificateId) {
+    @RequestMapping(value = "/{certificateId}/delete", method = RequestMethod.DELETE)
+    public int delete(@PathVariable int certificateId) {
         return giftCertificateService.delete(certificateId);
-    }
-
-    public List<GiftCertificate> byOneTag(String tagName) {
-        return giftCertificateService.searchByTag(tagName);
-    }
-
-    public List<GiftCertificate> findByString(String pattern) {
-        return giftCertificateService.searchByAnyString(pattern);
     }
 
 

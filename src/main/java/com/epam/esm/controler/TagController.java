@@ -1,22 +1,16 @@
 package com.epam.esm.controler;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.GiftException;
-import com.epam.esm.exception.JSONExceptionEntity;
 import com.epam.esm.service.CertificateService;
 import com.epam.esm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
 
 @RestControllerAdvice
-@RequestMapping("/api/tag")
+@RequestMapping("api/tag")
 public class TagController {
 
     @Autowired
@@ -27,7 +21,7 @@ public class TagController {
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public List<Tag> getAllTag() {
-        return tagService.getAllTags();
+        return tagService.all();
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -42,7 +36,7 @@ public class TagController {
         tagService.add(tagName);
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{tagId}/delete", method = RequestMethod.DELETE)
     public void deleteTag(@PathVariable int tagId) {
 
         tagService.delete(tagId);
@@ -53,6 +47,14 @@ public class TagController {
         return giftCertificateService.tags(certId);
     }
 
+    @RequestMapping(value = "/{certId}/tags/{tagId}", method = RequestMethod.POST)
+    public void attachTag(@PathVariable int certId, @PathVariable int tagId) {
+        giftCertificateService.attachTag(tagId, certId);
+    }
 
+    @RequestMapping(value = "/{certId}/tags/{tagId}/delete", method = RequestMethod.DELETE)
+    public int detachTag(@PathVariable int certId, @PathVariable int tagId) {
+        return giftCertificateService.detachTag(tagId, certId);
+    }
 
 }

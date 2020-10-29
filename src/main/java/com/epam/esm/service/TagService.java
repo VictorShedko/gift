@@ -18,7 +18,7 @@ public class TagService {
     @Autowired
     private GiftCertificateTagRelationRepository relationRepository;
 
-    public List<Tag> getAllTags() {
+    public List<Tag> all() {
         return tagRepository.getAllTags();
     }
 
