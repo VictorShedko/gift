@@ -19,6 +19,6 @@ public class RowMappers {
     };
 
     public static final RowMapper<Tag> TAG_ROW_MAPPER = (ResultSet resultSet, int rowNum) -> {
-        return new Tag(resultSet.getInt("id"), resultSet.getString("name"));//todo should i use constant class instead had codded column names?
+        return new Tag(resultSet.getInt("id"), resultSet.getString("name"));
     };
 }

@@ -39,13 +39,13 @@ public class TagController {
     @RequestMapping(value = "tag", method = RequestMethod.POST)
     public void addTag(@RequestBody Tag tag) {
 
-        tagService.addTag(tag.getName());
+        tagService.add(tag.getName());
     }
 
     @RequestMapping(value = "tag/{id}", method = RequestMethod.DELETE)
     public void deleteTag(@PathVariable int id) {
 
-        tagService.deleteTag(id);
+        tagService.delete(id);
     }
 
     @ExceptionHandler({GiftException.class})

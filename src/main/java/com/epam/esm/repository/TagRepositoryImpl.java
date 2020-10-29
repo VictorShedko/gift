@@ -1,8 +1,11 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.Tag;
+import com.epam.esm.exception.ErrorCodeDict;
 import com.epam.esm.exception.GiftException;
 import com.epam.esm.repository.util.RowMappers;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -25,7 +28,16 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
     @Override
     public void addTag(Tag newTag) {
         if (newTag.getId() == null) {
-            jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+            try {
+                jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+            }catch (DuplicateKeyException exception){
+                throw new GiftException("Tag with this name already exist",ErrorCodeDict.UNIQ_FIELD_DUPLICATION);
+
+            }catch (DataAccessException e){
+                throw new GiftException("Data access exception",ErrorCodeDict.UNKNOWN_ERROR);
+            }
+        }else {
+            throw new GiftException("Input mustn't contain id", ErrorCodeDict.BAD_INPUT_DATA_FORMAT);
         }
     }
 
@@ -48,7 +60,13 @@ public class TagRepositoryImpl extends EntityGiftRepository implements TagReposi
 
     @Override
     public Tag findTagByName(String name) {
-        Tag tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, RowMappers.TAG_ROW_MAPPER);
+        Tag tag=null;
+        try {
+            tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, RowMappers.TAG_ROW_MAPPER);
+        }catch (EmptyResultDataAccessException ex){
+            throw new GiftException("Resource by name "+ name+" not founded", ErrorCodeDict.RESOURCE_NOT_FOUNDED);
+        }
+
         return tag;
     }
 

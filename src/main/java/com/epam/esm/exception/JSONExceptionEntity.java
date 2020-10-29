@@ -7,7 +7,7 @@ public class JSONExceptionEntity {
     private String errorMassage;
     private HttpStatus status;
 
-    public JSONExceptionEntity(Integer errorCode, String errorMassage,HttpStatus status) {
+    public JSONExceptionEntity(Exception ex,Integer errorCode, String errorMassage,HttpStatus status) {
         this.errorCode = errorCode;
         this.errorMassage = errorMassage;
         this.status=status;
