@@ -41,7 +41,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
     }
 
 
-    public GiftCertificate findTagById(Integer id) {
+    public GiftCertificate findById(Integer id) {
         try {
             return jdbcTemplate.queryForObject("select * from gift_certificate where id = ?",
                     new Object[]{id}, RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
@@ -51,7 +51,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
 
     }
 
-    public List<GiftCertificate> getAll() {
+    public List<GiftCertificate> all() {
         return jdbcTemplate.query("select * from gift_certificate " +
                 "ORDER BY name,creationTime", RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
     }
@@ -59,7 +59,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
     @Transactional
     public int update(GiftCertificate certificate) {
         try {
-            return jdbcTemplate.update("update gift.gift_certificate " +
+            return jdbcTemplate.update("update gift_certificate " +
                             "set gift_certificate.name=?," +
                             "gift_certificate.description=?," +
                             "gift_certificate.price=?," +
@@ -91,6 +91,16 @@ public class GiftCertificateRepository extends EntityGiftRepository {
                         "where description " +
                         "LIKE ?" +
                         "ORDER BY name,creationTime", new Object[]{"%" + pattern + "%"},
+                RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
+    }
+
+    public List<GiftCertificate> searchByAnyString(String pattern) {
+        return jdbcTemplate.query("select * " +
+                        "from gift_certificate " +
+                        "where description " +
+                        "LIKE ?" +
+                        "OR name LIKE ?" +
+                        "ORDER BY name,creationTime", new Object[]{"%" + pattern + "%","%" + pattern + "%"},
                 RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);
     }
 }

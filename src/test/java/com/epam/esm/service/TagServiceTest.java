@@ -1,7 +1,8 @@
 package com.epam.esm.service;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.repository.TagRepositoryImpl;
+import com.epam.esm.repository.GiftRepository;
+import com.epam.esm.repository.TagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,7 @@ class TagServiceTest {
     private TagService tagService = new TagService();
 
     @Mock
-    private TagRepositoryImpl tagRepository;
+    private TagRepository tagRepository;
 
     @BeforeEach
     public void  setup() {
@@ -37,7 +38,7 @@ class TagServiceTest {
     @Test
     void getAllTags() {
         List<Tag> tags = List.of(TEST_TAG_1, TEST_TAG_2);
-        Mockito.when(tagRepository.getAllTags()).thenReturn(tags);
+        Mockito.when(tagRepository.all()).thenReturn(tags);
 
         List<Tag> resultTags = tagService.all();
 
@@ -46,8 +47,8 @@ class TagServiceTest {
 
     @Test
     void findTagById() {
-        Mockito.when(tagRepository.findTagById(1)).thenReturn(TEST_TAG_1);
-        Mockito.when(tagRepository.findTagById(2)).thenReturn(TEST_TAG_2);
+        Mockito.when(tagRepository.findById(1)).thenReturn(TEST_TAG_1);
+        Mockito.when(tagRepository.findById(2)).thenReturn(TEST_TAG_2);
         Tag tag1=tagService.findTagById(1);
         Tag tag2=tagService.findTagById(2);
         assertEquals(TEST_TAG_1,tag1);

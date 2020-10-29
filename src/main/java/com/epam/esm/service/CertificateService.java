@@ -27,13 +27,13 @@ public class CertificateService {
     private UpdateCertificateService updateCertificateService;
 
     public List<GiftCertificate> all() {
-        List<GiftCertificate> certificates = giftCertificateRepository.getAll();
+        List<GiftCertificate> certificates = giftCertificateRepository.all();
         return certificates;
     }
 
 
     public GiftCertificate findById(Integer id) {
-        return giftCertificateRepository.findTagById(id);
+        return giftCertificateRepository.findById(id);
     }
 
     public GiftCertificate add(GiftCertificate certificate) {
@@ -78,9 +78,7 @@ public class CertificateService {
     }
 
     public List<GiftCertificate> searchByAnyString(String pattern){
-        List<GiftCertificate> allCertificates=searchByName(pattern);
-        allCertificates.addAll(searchByDescription(pattern));
-        return allCertificates;
+        return giftCertificateRepository.searchByAnyString(pattern);
     }
 
     public List<GiftCertificate> searchByTag(String tagName){

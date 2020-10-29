@@ -15,15 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-class TagRepositoryImplTest {
+class TagRepositoryTest {
 
     @Autowired
-    private static TagRepositoryImpl tagRepository;
+    private static TagRepository tagRepository;
 
     @BeforeAll
     public static void init(){
         TestConfig config=new TestConfig();
-        tagRepository=new TagRepositoryImpl(config.dataSource());
+        tagRepository=new TagRepository(config.dataSource());
     }
 
     @Test
@@ -32,15 +32,15 @@ class TagRepositoryImplTest {
         newTag.setName("testTag");
 
         Assertions.assertThrows(GiftException.class, () -> {
-            tagRepository.findTagByName("testTag");
+            tagRepository.findByName("testTag");
         });
 
-        tagRepository.addTag(newTag);
+        tagRepository.add(newTag);
 
-        Tag founded=tagRepository.findTagByName("testTag");
+        Tag founded=tagRepository.findByName("testTag");
         assertNotEquals(null,founded);
 
-        tagRepository.deleteTag(founded);
+        tagRepository.delete(founded);
     }
 
     @Test
@@ -50,7 +50,7 @@ class TagRepositoryImplTest {
         newTag.setId(12);
 
         Assertions.assertThrows(GiftException.class, () -> {
-            tagRepository.addTag(newTag);
+            tagRepository.add(newTag);
         });
     }
 
@@ -59,14 +59,14 @@ class TagRepositoryImplTest {
         Tag newTag=new Tag();
         newTag.setName("testTag");
 
-        tagRepository.addTag(newTag);
-        Tag founded=tagRepository.findTagByName("testTag");
+        tagRepository.add(newTag);
+        Tag founded=tagRepository.findByName("testTag");
         assertNotEquals(null,founded);
 
-        Tag toDelete=tagRepository.findTagByName("testTag");
-        tagRepository.deleteTag(toDelete);
+        Tag toDelete=tagRepository.findByName("testTag");
+        tagRepository.delete(toDelete);
         Assertions.assertThrows(GiftException.class, () -> {
-            tagRepository.findTagByName("testTag");
+            tagRepository.findByName("testTag");
         });
 
 
@@ -76,30 +76,30 @@ class TagRepositoryImplTest {
 
     @Test
     void findTagById() {
-        Tag tag=tagRepository.findTagById(11);
+        Tag tag=tagRepository.findById(11);
 
         assertEquals("123",tag.getName());
     }
 
     @Test
     void findTagByName() {
-        Tag tag=tagRepository.findTagByName("123");
+        Tag tag=tagRepository.findByName("123");
 
         assertEquals(11,tag.getId());
     }
 
     @Test
     void getAllTags() {
-        assertEquals(10,tagRepository.getAllTags().size());
+        assertEquals(10,tagRepository.all().size());
     }
 
     @Test
     void nameIsUniqTag() {
         Tag newTag=new Tag();
         newTag.setName("testTag");
-        tagRepository.addTag(newTag);
+        tagRepository.add(newTag);
         Assertions.assertThrows(GiftException.class, () -> {
-            tagRepository.addTag(newTag);
+            tagRepository.add(newTag);
         });
 
     }

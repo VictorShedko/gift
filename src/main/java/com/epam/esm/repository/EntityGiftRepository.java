@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class EntityGiftRepository {
+public abstract class EntityGiftRepository {
 
     protected JdbcTemplate jdbcTemplate;
 
