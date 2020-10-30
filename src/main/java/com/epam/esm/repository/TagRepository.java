@@ -17,12 +17,13 @@ import com.epam.esm.exception.UniqFieldException;
 import com.epam.esm.repository.util.RowMappers;
 
 @Repository
-public class TagRepository extends EntityGiftRepository {
+public class TagRepository extends EntityGiftRepository implements GiftRepositoryInterface<Tag> {
 
     public TagRepository(DataSource dataSource) {
         super(dataSource);
     }
 
+    @Override
     public void add(Tag newTag) {
         if (newTag.getId() == null) {
             try {
@@ -38,11 +39,13 @@ public class TagRepository extends EntityGiftRepository {
         }
     }
 
+    @Override
     @Transactional
     public int delete(Tag tag) {
         return jdbcTemplate.update("delete from tag where id=?", tag.getId());
     }
 
+    @Override
     public Tag findById(Integer id) {
         Tag tag = null;
         try {
@@ -66,6 +69,7 @@ public class TagRepository extends EntityGiftRepository {
         return tag;
     }
 
+    @Override
     public List<Tag> all() {
         return jdbcTemplate.query("select * from tag", RowMappers.TAG_ROW_MAPPER);
     }

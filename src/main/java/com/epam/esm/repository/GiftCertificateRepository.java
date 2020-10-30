@@ -16,12 +16,13 @@ import com.epam.esm.exception.ResourceNotFoundedException;
 import com.epam.esm.repository.util.RowMappers;
 
 @Repository
-public class GiftCertificateRepository extends EntityGiftRepository {
+public class GiftCertificateRepository extends EntityGiftRepository implements GiftRepositoryInterface<GiftCertificate>{
 
     public GiftCertificateRepository(DataSource dataSource) {
         super(dataSource);
     }
 
+    @Override
     @Transactional
     public void add(GiftCertificate certificate) {
         if (certificate.getId() == null) {
@@ -35,11 +36,13 @@ public class GiftCertificateRepository extends EntityGiftRepository {
         }
     }
 
+    @Override
     @Transactional
     public int delete(GiftCertificate certificate) {
         return jdbcTemplate.update("delete from gift_certificate where id=?", certificate.getId());
     }
 
+    @Override
     public GiftCertificate findById(Integer id) {
         try {
             return jdbcTemplate.queryForObject("select * from gift_certificate where id = ?", new Object[] {id},
@@ -50,6 +53,7 @@ public class GiftCertificateRepository extends EntityGiftRepository {
 
     }
 
+    @Override
     public List<GiftCertificate> all() {
         return jdbcTemplate.query("select * from gift_certificate " + "ORDER BY name,creationTime",
                 RowMappers.GIFT_CERTIFICATE_ROW_MAPPER);

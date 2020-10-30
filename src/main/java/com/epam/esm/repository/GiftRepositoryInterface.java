@@ -2,13 +2,13 @@ package com.epam.esm.repository;
 
 import java.util.List;
 
-public interface GiftRepository<T> {
+public interface GiftRepositoryInterface<T> {
 
     void add(T t);
 
-    int deleteTag(T t);
+    int delete(T t);
 
-    T findTagById(Integer id);
+    T findById(Integer id);
 
     List<T> all();
 

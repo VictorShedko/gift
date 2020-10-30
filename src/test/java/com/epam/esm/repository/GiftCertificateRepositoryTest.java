@@ -100,16 +100,19 @@ class GiftCertificateRepositoryTest {
     void searchByName() {
 
         repository.add(testCert);
-        GiftCertificate certificate=repository.searchByName("Test").get(0);
+        List<GiftCertificate> certificates=repository.searchByName("Test");
+        GiftCertificate certificate=certificates.get(0);
         assertEquals("Test name",certificate.getName());
-
+        assertEquals(1,certificates.size());
     }
 
     @Test
     void searchByDescription() {
 
         repository.add(testCert);
-        GiftCertificate certificate=repository.searchByDescription("Test").get(0);
+        List<GiftCertificate> certificates=repository.searchByDescription("Test");
+        GiftCertificate certificate=certificates.get(0);
         assertEquals("Test description",certificate.getDescription());
+        assertEquals(1,certificates.size());
     }
 }

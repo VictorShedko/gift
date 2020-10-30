@@ -9,6 +9,9 @@ import com.epam.esm.entity.Tag;
 import com.epam.esm.repository.GiftCertificateTagRelationRepository;
 import com.epam.esm.repository.TagRepository;
 
+/**
+ * Tag service.
+ */
 @Service
 public class TagService {
 
@@ -18,25 +21,53 @@ public class TagService {
     @Autowired
     private GiftCertificateTagRelationRepository relationRepository;
 
+    /**
+     * All tags from DB.
+     *
+     * @return the list
+     */
     public List<Tag> all() {
         return tagRepository.all();
     }
 
-    public Tag findTagById(Integer id) {
+    /**
+     * Find tag by id.
+     *
+     * @param id the id
+     * @return the tag
+     */
+    public Tag findById(Integer id) {
         return tagRepository.findById(id);
     }
 
-    public Tag findTagByName(String name) {
+    /**
+     * Find by name tag.
+     *
+     * @param name the name
+     * @return the tag
+     */
+    public Tag findByName(String name) {
         return tagRepository.findByName(name);
     }
 
-    public Tag add(String name) {
+    /**
+     * Add tag to BD.
+     *
+     * @param name the name
+     */
+    public void add(String name) {
         var tag = new Tag();
         tag.setName(name);
         tagRepository.add(tag);
-        return findTagByName(name);
     }
 
+    /**
+     * Delete tag with id=id. And returns affected row amount(if
+     * tag was deleted returns 1)
+     *
+     * @param id the id
+     * @return the int
+     */
     public int delete(Integer id) {
         var tag = new Tag();
         tag.setId(id);

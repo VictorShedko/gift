@@ -1,10 +1,8 @@
 package com.epam.esm.controler;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.service.CertificateService;
+import com.epam.esm.service.GiftCertificateService;
 
 @RestController
 @RequestMapping("api/gift-cert")
 public class GiftController {
 
     @Autowired
-    private CertificateService giftCertificateService;
+    private GiftCertificateService giftCertificateService;
 
     @RequestMapping(value = "/certs", method = RequestMethod.GET)
     public List<GiftCertificate> all() {
@@ -38,8 +36,7 @@ public class GiftController {
 
     @RequestMapping(value = "/certs/{id}", method = RequestMethod.GET)
     public GiftCertificate certificate(@PathVariable int id) {
-        GiftCertificate giftCertificate = giftCertificateService.findById(id);
-        return giftCertificate;
+        return giftCertificateService.findById(id);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
