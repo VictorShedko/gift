@@ -1,25 +1,23 @@
 package com.epam.esm.repository;
 
 import com.epam.esm.entity.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import com.epam.esm.exception.GiftException;
+import com.epam.esm.exception.ResourceNotFoundedException;
+import com.epam.esm.exception.UniqFieldException;
+import com.epam.esm.repository.util.RowMappers;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
-public class TagRepositoryImpl extends GiftRepository implements TagRepository {
+public class TagRepositoryImpl extends EntityGiftRepository implements TagRepository {
 
-
-
-    RowMapper<Tag> ROW_MAPPER = (ResultSet resultSet, int rowNum) -> {
-        return new Tag(resultSet.getInt("id"), resultSet.getString("name"));//todo should i use constant class instead had codded column names?
-    };
 
     public TagRepositoryImpl(DataSource dataSource) {
         super(dataSource);
@@ -29,30 +27,50 @@ public class TagRepositoryImpl extends GiftRepository implements TagRepository {
     @Override
     public void addTag(Tag newTag) {
         if (newTag.getId() == null) {
-            jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+            try {
+                jdbcTemplate.update("insert into tag (name) values ( ?)", newTag.getName());
+            }catch (DuplicateKeyException exception){
+                throw new UniqFieldException("name");
+
+            }catch (DataAccessException e){
+                throw new GiftException();
+            }
+        }else {
+            throw new GiftException();
         }
     }
 
     @Transactional
     @Override
     public int deleteTag(Tag tag) {
-        return jdbcTemplate.update("delete from tag where id=?",tag.getId());
+        return jdbcTemplate.update("delete from tag where id=?", tag.getId());
     }
 
     @Override
     public Tag findTagById(Integer id) {
-         Tag tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, ROW_MAPPER);
-         return tag;
+        Tag tag=null;
+        try {
+            tag = jdbcTemplate.queryForObject("select * from tag where id = ?", new Object[]{id}, RowMappers.TAG_ROW_MAPPER);
+        }catch (EmptyResultDataAccessException exception){
+            throw new ResourceNotFoundedException("tag",id.toString());
+        }
+        return tag;
     }
 
     @Override
     public Tag findTagByName(String name) {
-        Tag tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, ROW_MAPPER);
+        Tag tag=null;
+        try {
+            tag = jdbcTemplate.queryForObject("select * from tag where name = ?", new Object[]{name}, RowMappers.TAG_ROW_MAPPER);
+        }catch (EmptyResultDataAccessException ex){
+            throw new ResourceNotFoundedException("tag",name);
+        }
+
         return tag;
     }
 
     @Override
     public List<Tag> getAllTags() {
-        return jdbcTemplate.query("select * from tag", ROW_MAPPER);
+        return jdbcTemplate.query("select * from tag", RowMappers.TAG_ROW_MAPPER);
     }
 }

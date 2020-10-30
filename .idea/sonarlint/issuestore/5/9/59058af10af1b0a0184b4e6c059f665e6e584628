@@ -1,14 +1,0 @@
-
-x
-java:S1488%"[Immediately return this expression instead of assigning it to the temporary variable "tag".(ß³çÑ8ÎÈã¬Ô.
-v	java:S116"URename this field "ROW_MAPPER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªØ„‚ùÿÿÿÿ8ÛñÇ¬Ô.
-M
-java:S1128"+Remove this unused import 'java.util.UUID'.(ÀãÄ£úÿÿÿÿ8¸¨­Ô.
-O
-java:S1128"-Remove this unused import 'java.util.Random'.(èøÉ›ùÿÿÿÿ8¸¨­Ô.
-}
-java:S1488+"[Immediately return this expression instead of assigning it to the temporary variable "tag".(ú­öíøÿÿÿÿ8üïã¬Ô.
-T
-java:S1135"2Complete the task associated to this TODO comment.(õ¶øÿÿÿÿ8ÛñÇ¬Ô.
-u
-java:S1602"SRemove useless curly braces around statement and then remove useless return keyword(ªØ„‚ùÿÿÿÿ8ÛñÇ¬Ô.
