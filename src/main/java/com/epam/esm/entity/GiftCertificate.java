@@ -1,12 +1,11 @@
 package com.epam.esm.entity;
 
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class GiftCertificate {
+
     private Integer id;
     private String name;
     private String description;
@@ -20,8 +19,8 @@ public class GiftCertificate {
     public GiftCertificate() {
     }
 
-    public GiftCertificate(Integer id, String name, String description, Float price,
-                           Date creationTime, Date updateTime, Integer duration) {
+    public GiftCertificate(Integer id, String name, String description, Float price, Date creationTime, Date updateTime,
+            Integer duration) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -81,16 +80,23 @@ public class GiftCertificate {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         GiftCertificate that = (GiftCertificate) o;
 
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (creationTime != null ? !creationTime.equals(that.creationTime) : that.creationTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null)
+            return false;
+        if (description != null ? !description.equals(that.description) : that.description != null)
+            return false;
+        if (price != null ? !price.equals(that.price) : that.price != null)
+            return false;
+        if (creationTime != null ? !creationTime.equals(that.creationTime) : that.creationTime != null)
+            return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null)
+            return false;
         return duration != null ? duration.equals(that.duration) : that.duration == null;
     }
 
@@ -115,14 +121,9 @@ public class GiftCertificate {
 
     @Override
     public String toString() {
-        return "GiftCertificate{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", creationTime='" + creationTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", duration=" + duration +
-                '}';
+        return "GiftCertificate{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", price=" + price
+                + ", creationTime='" + creationTime + '\'' + ", updateTime='" + updateTime + '\'' + ", duration="
+                + duration + '}';
     }
 
 }

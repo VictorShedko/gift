@@ -1,8 +1,6 @@
 package com.epam.esm.util;
 
-
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -17,7 +15,6 @@ public class TimeManager {
     static {
         dateFormat.setTimeZone(tz);
     }
-
 
     public static Date now() {
         return new Date();

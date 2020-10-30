@@ -1,13 +1,13 @@
 package com.epam.esm.service;
 
-import com.epam.esm.entity.Tag;
-import com.epam.esm.repository.GiftCertificateTagRelationRepository;
-import com.epam.esm.repository.GiftRepository;
-import com.epam.esm.repository.TagRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.epam.esm.entity.Tag;
+import com.epam.esm.repository.GiftCertificateTagRelationRepository;
+import com.epam.esm.repository.TagRepository;
 
 @Service
 public class TagService {
@@ -42,6 +42,5 @@ public class TagService {
         tag.setId(id);
         return tagRepository.delete(tag);
     }
-
 
 }

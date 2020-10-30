@@ -1,15 +1,18 @@
 package com.epam.esm.controler;
 
-import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.entity.Tag;
-import com.epam.esm.service.CertificateService;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.time.ZonedDateTime;
-import java.util.List;
+import com.epam.esm.entity.GiftCertificate;
+import com.epam.esm.service.CertificateService;
 
 @RestController
 @RequestMapping("api/gift-cert")
@@ -29,10 +32,9 @@ public class GiftController {
     }
 
     @RequestMapping(value = "/certs/{find}/find", method = RequestMethod.GET)
-    public List<GiftCertificate> find(@PathVariable( name = "find") String pattern) {
+    public List<GiftCertificate> find(@PathVariable(name = "find") String pattern) {
         return giftCertificateService.searchByAnyString(pattern);
     }
-
 
     @RequestMapping(value = "/certs/{id}", method = RequestMethod.GET)
     public GiftCertificate certificate(@PathVariable int id) {
@@ -42,7 +44,6 @@ public class GiftController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public void add(@RequestBody GiftCertificate certificate) {
-
         giftCertificateService.add(certificate);
     }
 
@@ -51,19 +52,9 @@ public class GiftController {
         return giftCertificateService.update(certificate);
     }
 
-
     @RequestMapping(value = "/{certificateId}/delete", method = RequestMethod.DELETE)
     public int delete(@PathVariable int certificateId) {
         return giftCertificateService.delete(certificateId);
     }
 
-
-    @Deprecated
-    @RequestMapping(value = "gift-cert/test", method = RequestMethod.POST)
-    public ZonedDateTime timeTest(@RequestBody
-                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime date) {
-
-        return date;
-    }
-    //@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'.'S Z")
 }

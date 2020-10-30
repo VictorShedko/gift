@@ -1,19 +1,21 @@
 package com.epam.esm.service;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.repository.GiftCertificateRepository;
 import com.epam.esm.repository.GiftCertificateTagRelationRepository;
 import com.epam.esm.service.util.UpdateCertificateService;
 import com.epam.esm.util.TimeManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class CertificateService {
+
     @Autowired
     private GiftCertificateRepository giftCertificateRepository;
 
@@ -31,13 +33,12 @@ public class CertificateService {
         return certificates;
     }
 
-
     public GiftCertificate findById(Integer id) {
         return giftCertificateRepository.findById(id);
     }
 
     public GiftCertificate add(GiftCertificate certificate) {
-        Date nowDate=TimeManager.now();
+        Date nowDate = TimeManager.now();
         certificate.setCreationTime(nowDate);
         certificate.setUpdateTime(nowDate);
         giftCertificateRepository.add(certificate);
@@ -65,24 +66,24 @@ public class CertificateService {
 
     public int update(GiftCertificate pathCertificate) {
         GiftCertificate certificateFromDB = findById(pathCertificate.getId());
-        updateCertificateService.updateCertificate(certificateFromDB,pathCertificate);
+        updateCertificateService.updateCertificate(certificateFromDB, pathCertificate);
         return giftCertificateRepository.update(certificateFromDB);
     }
 
-    public List<GiftCertificate> searchByName(String pattern){
+    public List<GiftCertificate> searchByName(String pattern) {
         return giftCertificateRepository.searchByName(pattern);
     }
 
-    public List<GiftCertificate> searchByDescription(String pattern){
+    public List<GiftCertificate> searchByDescription(String pattern) {
         return giftCertificateRepository.searchByDescription(pattern);
     }
 
-    public List<GiftCertificate> searchByAnyString(String pattern){
+    public List<GiftCertificate> searchByAnyString(String pattern) {
         return giftCertificateRepository.searchByAnyString(pattern);
     }
 
-    public List<GiftCertificate> searchByTag(String tagName){
-        Tag tag=tagService.findTagByName(tagName);
+    public List<GiftCertificate> searchByTag(String tagName) {
+        Tag tag = tagService.findTagByName(tagName);
         return relationRepository.getCertificateByTag(tag);
     }
 
