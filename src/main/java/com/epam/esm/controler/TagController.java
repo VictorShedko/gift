@@ -1,13 +1,13 @@
 package com.epam.esm.controler;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.service.CertificateService;
+import com.epam.esm.service.GiftCertificateService;
 import com.epam.esm.service.TagService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestControllerAdvice
 @RequestMapping("api/tag")
@@ -17,7 +17,7 @@ public class TagController {
     private TagService tagService;
 
     @Autowired
-    private CertificateService giftCertificateService;
+    private GiftCertificateService giftCertificateService;
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public List<Tag> getAllTag() {
@@ -26,9 +26,8 @@ public class TagController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public Tag getTag(@RequestParam int tagId) {
-        return tagService.findTagById(tagId);
+        return tagService.findById(tagId);
     }
-
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public void addTag(@RequestBody String tagName) {

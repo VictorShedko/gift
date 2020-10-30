@@ -1,22 +1,20 @@
 package com.epam.esm.config;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+
 @Configuration
 public class AppConfiguration {
-
 
     @Bean
     public DataSource getPoolDataSource() throws IOException {
@@ -32,15 +30,13 @@ public class AppConfiguration {
         String username = properties.getProperty("username");
         String password = properties.getProperty("password");
 
-
-        BasicDataSource basicDataSource =new BasicDataSource();
+        BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(driver);
         basicDataSource.setUrl(url);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
         return basicDataSource;
     }
-
 
     public DataSource getDefaultSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
@@ -72,7 +68,6 @@ public class AppConfiguration {
         } catch (IOException io) {
 
         }
-
 
         return dataSource;
     }

@@ -1,6 +1,7 @@
 package com.epam.esm.entity;
 
 public class Tag {
+
     private Integer id;
     private String name;
 
@@ -27,12 +28,15 @@ public class Tag {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Tag tag = (Tag) o;
 
-        if (id != null ? !id.equals(tag.id) : tag.id != null) return false;
+        if (id != null ? !id.equals(tag.id) : tag.id != null)
+            return false;
         return name != null ? name.equals(tag.name) : tag.name == null;
     }
 
@@ -45,10 +49,7 @@ public class Tag {
 
     @Override
     public String toString() {
-        return "Tag{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Tag{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 
     public Tag() {

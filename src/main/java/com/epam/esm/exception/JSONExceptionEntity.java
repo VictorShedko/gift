@@ -3,20 +3,22 @@ package com.epam.esm.exception;
 import org.springframework.http.HttpStatus;
 
 public class JSONExceptionEntity {
+
     private Integer errorCode;
     private String errorMassage;
     private HttpStatus status;
 
-    public JSONExceptionEntity(Integer errorCode, String errorMassage,HttpStatus status) {
+    public JSONExceptionEntity(Integer errorCode, String errorMassage, HttpStatus status) {
         this.errorCode = errorCode;
         this.errorMassage = errorMassage;
-        this.status=status;
+        this.status = status;
     }
+
     @Deprecated
-    public JSONExceptionEntity(GiftException exception,HttpStatus status){
+    public JSONExceptionEntity(GiftException exception, HttpStatus status) {
         super();
-        this.errorMassage=exception.getMessage();
-        this.status=status;
+        this.errorMassage = exception.getMessage();
+        this.status = status;
     }
 
     public HttpStatus getStatus() {
