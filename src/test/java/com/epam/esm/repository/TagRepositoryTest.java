@@ -4,29 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.epam.esm.config.TestConfig;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.exception.GiftException;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {TestConfig.class})
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 class TagRepositoryTest {
 
     @Autowired
-    private static TagRepository tagRepository;
-
-    @BeforeAll
-    public static void init() {
-        TestConfig config = new TestConfig();
-        tagRepository = new TagRepository(config.dataSource());
-    }
+    private TagRepository tagRepository;
 
     @Test
     void addTag() {

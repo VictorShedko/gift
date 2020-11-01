@@ -20,9 +20,9 @@ import com.epam.esm.service.util.UpdateCertificateService;
 
 class GiftCertificateServiceTest {
 
-    private static GiftCertificate testCert1=new GiftCertificate();
-    private static GiftCertificate testCert2=new GiftCertificate();
-    private static List<GiftCertificate> allCerts=List.of(testCert1,testCert2);
+    private static GiftCertificate testCert1 = new GiftCertificate();
+    private static GiftCertificate testCert2 = new GiftCertificate();
+    private static List<GiftCertificate> allCerts = List.of(testCert1, testCert2);
 
     static {
         testCert1.setId(1);
@@ -44,7 +44,7 @@ class GiftCertificateServiceTest {
     }
 
     @InjectMocks
-    private GiftCertificateService service=new GiftCertificateService();
+    private GiftCertificateService service = new GiftCertificateService();
 
     @Mock
     private GiftCertificateRepository giftCertificateRepository;
@@ -59,7 +59,7 @@ class GiftCertificateServiceTest {
     private UpdateCertificateService updateCertificateService;
 
     @BeforeEach
-    public void  setup() {
+    public void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -78,10 +78,10 @@ class GiftCertificateServiceTest {
     void findById() {
         Mockito.when(giftCertificateRepository.findById(1)).thenReturn(testCert1);
         Mockito.when(giftCertificateRepository.findById(2)).thenReturn(testCert2);
-        GiftCertificate cert1=service.findById(1);
-        GiftCertificate cert2=service.findById(2);
-        assertEquals(testCert1,cert1);
-        assertEquals(testCert2,cert2);
+        GiftCertificate cert1 = service.findById(1);
+        GiftCertificate cert2 = service.findById(2);
+        assertEquals(testCert1, cert1);
+        assertEquals(testCert2, cert2);
     }
 
     @Test
@@ -98,23 +98,23 @@ class GiftCertificateServiceTest {
 
     @Test
     void attachTag() {
-        service.attachTag(1,2);
-        Mockito.verify(relationRepository).attach(1,2);
+        service.attachTag(1, 2);
+        Mockito.verify(relationRepository).attach(1, 2);
     }
 
     @Test
     void detachTag() {
-        service.detachTag(1,2);
-        Mockito.verify(relationRepository).detach(1,2);
+        service.detachTag(1, 2);
+        Mockito.verify(relationRepository).detach(1, 2);
     }
 
     @Test
     void update() {
-        GiftCertificate patch=new GiftCertificate();
+        GiftCertificate patch = new GiftCertificate();
         patch.setId(2);
         patch.setDuration(3);
 
-        GiftCertificate expected=new GiftCertificate();
+        GiftCertificate expected = new GiftCertificate();
 
         expected.setId(2);
         expected.setName("test2");
@@ -125,7 +125,7 @@ class GiftCertificateServiceTest {
         expected.setDuration(3);
 
         Mockito.when(giftCertificateRepository.findById(2)).thenReturn(testCert2);
-        Mockito.when(updateCertificateService.updateCertificate(testCert2,patch)).thenReturn(expected);
+        Mockito.when(updateCertificateService.updateCertificate(testCert2, patch)).thenReturn(expected);
         service.update(patch);
 
         Mockito.verify(giftCertificateRepository).update(expected);
@@ -135,8 +135,8 @@ class GiftCertificateServiceTest {
     void searchByName() {
         Mockito.when(giftCertificateRepository.searchByName("te")).thenReturn(allCerts);
 
-        List<GiftCertificate> certificates=service.searchByName("te");
-        assertEquals(certificates,allCerts);
+        List<GiftCertificate> certificates = service.searchByName("te");
+        assertEquals(certificates, allCerts);
 
     }
 
@@ -144,38 +144,37 @@ class GiftCertificateServiceTest {
     void searchByDescription() {
         Mockito.when(giftCertificateRepository.searchByDescription("te")).thenReturn(allCerts);
 
-        List<GiftCertificate> certificates=service.searchByDescription("te");
-        assertEquals(certificates,allCerts);
+        List<GiftCertificate> certificates = service.searchByDescription("te");
+        assertEquals(certificates, allCerts);
     }
 
     @Test
     void searchByAnyString() {
         Mockito.when(giftCertificateRepository.searchByAnyString("te")).thenReturn(allCerts);
 
-        List<GiftCertificate> certificates=service.searchByAnyString("te");
-        assertEquals(certificates,allCerts);
+        List<GiftCertificate> certificates = service.searchByAnyString("te");
+        assertEquals(certificates, allCerts);
     }
 
     @Test
     void searchByTag() {
 
-
-        Tag tag= new Tag();
+        Tag tag = new Tag();
         tag.setId(11);
         Mockito.when(tagService.findByName("tag")).thenReturn(tag);
         Mockito.when(relationRepository.getCertificateByTag(tag)).thenReturn(allCerts);
 
-        List<GiftCertificate> certificates=service.searchByTag("tag");
-        assertEquals(allCerts,certificates);
+        List<GiftCertificate> certificates = service.searchByTag("tag");
+        assertEquals(allCerts, certificates);
 
     }
 
     @Test
     void tags() {
-        List<Tag> tags=List.of(new Tag());
+        List<Tag> tags = List.of(new Tag());
         Mockito.when(relationRepository.getTagsByCertificate(Mockito.any())).thenReturn(tags);
-        List<Tag> resultTags=service.tags(1);
-        assertEquals(tags,resultTags);
+        List<Tag> resultTags = service.tags(1);
+        assertEquals(tags, resultTags);
 
     }
 }
