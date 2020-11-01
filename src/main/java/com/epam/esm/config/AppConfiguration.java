@@ -10,12 +10,14 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 @Configuration
 public class AppConfiguration {
 
+    @Profile("!test")
     @Bean
     public DataSource getPoolDataSource() throws IOException {
         Properties properties = new Properties();
